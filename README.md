@@ -1,4 +1,4 @@
-# Финальный проект 7 спринта на тему "Тестирование API"
+# Финальный проект 7 спринта курса "Автоматизатор тестирования на Python" от Яндекс Практикум на тему "Тестирование API"
 
 Автотесты для сервиса  "Яндекс Самокат". Его документация: `qa-scooter.praktikum-services.ru/docs/.`
 
@@ -26,5 +26,4 @@ pytest tests --alluredir=allure_results
 Посмотреть отчет о тестировании
 ```
 allure serve allure_results
-```# Sprint_7
-7 sprint_qa_python
+```
