@@ -1,5 +1,5 @@
 import allure
-from helps import Courier
+from helpers import Courier
 
 
 class TestDeleteCourier:
@@ -26,5 +26,5 @@ class TestDeleteCourier:
     def test_delete_courier_none_id_failed(self):
         courier_id = None
         response = Courier().courier_subsequent_deletion(courier_id)
-        assert response["status_code"] == 500
+        assert response["status_code"] == 400
         assert "invalid input syntax" in response["response_text"] 

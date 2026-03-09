@@ -1,7 +1,7 @@
 import allure
 import pytest
 import requests
-from helps import DataCourier, Courier
+from helpers import DataCourier, Courier
 from endpoints import Endpoints
 from urls import Urls
 
@@ -32,3 +32,35 @@ class TestLoginCourier:
         response = requests.post(f'{Urls.QA_SCOOTER_URL}{Endpoints.login_courier}', data=DataCourier.null_data_login)
         assert response.status_code == 404
         assert "Учетная запись не найдена" in response.text
+    
+    def test_courier_login_with_null_login_failed(self):
+    #Тест на авторизацию с пустым логином
+      response = requests.post(f'{Urls.QA_SCOOTER_URL}{Endpoints.login_courier}', data=DataCourier.null_data_login)
+    
+    assert response.status_code == 404
+    response_data = response.json()
+    assert response_data.get("message") == "Учетная запись не найдена"
+
+
+    def test_courier_login_with_invalid_credentials_failed(self):
+    #Тест на авторизацию с некорректными данными
+     invalid_data = {
+        "login": "invalid_login_12345",
+        "password": "invalid_password_12345"
+    }
+    response = requests.post(f'{Urls.QA_SCOOTER_URL}{Endpoints.login_courier}', data=invalid_data)
+    
+    response_data = response.json()
+    
+    assert response.status_code == 404
+    assert "Учетная запись не найдена" in response_data.get("message", "")
+
+
+    def test_courier_login_with_invalid_format_failed(self):
+    #Тест на авторизацию с некорректным форматом данных
+     invalid_format = "login=test&password=123"  # неправильный формат
+    
+    response = requests.post(f'{Urls.QA_SCOOTER_URL}{Endpoints.login_courier}', data=invalid_format)
+    
+    # Проверяем, что API возвращает ошибку валидации
+    assert response.status_code in [400, 422] 

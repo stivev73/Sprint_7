@@ -1,7 +1,7 @@
 import allure
 import pytest
 import requests
-from helps import DataCourier
+from helpers import DataCourier
 from endpoints import Endpoints
 from urls import Urls
 
